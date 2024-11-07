@@ -76,29 +76,27 @@ const AnnouncementListPage = async ({
     for(const [key,value] of Object.entries(queryParams)){
       if(value!==undefined){
         switch(key){
-          
-          
           case 'search':
             query.title={contains:value,mode:'insensitive'}
             break;
-        }
+          }
       }
       
     }
   }
 
-  const roleConditions = {
-    teacher: { lessons: { some: { teacherId: currentUserId! } } },
-    student: { students: { some: { id: currentUserId! } } },
-    parent: { students: { some: { parentId: currentUserId! } } },
-  };
+  // const roleConditions = {
+  //   teacher: { lessons: { some: { teacherId: currentUserId! } } },
+  //   student: { students: { some: { id: currentUserId! } } },
+  //   parent: { students: { some: { parentId: currentUserId! } } },
+  // };
 
-  query.OR = [
-    { classId: null },
-    {
-      class: roleConditions[role as keyof typeof roleConditions] || {},
-    },
-  ];
+  // query.OR = [
+  //   { classId: null },
+  //   {
+  //     class: roleConditions[role as keyof typeof roleConditions] || {},
+  //   },
+  // ];
 
 
   const [data,count]=await prisma.$transaction([
